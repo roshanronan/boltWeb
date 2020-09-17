@@ -1,0 +1,457 @@
+import styles from "./../applicantPersonalDetails.module.css";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+
+const SignUpInputField1 = [
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "",
+      name: "formType",
+    },
+    options: [
+      { value: "boltenergy", label: "Bolt Energy: WNS Text TPV E-sig CA" },
+    ],
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Rep Id",
+      type: "text",
+      name: "repId",
+      placeholder: "Rep Id",
+    },
+  },
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "Language",
+      name: "language",
+    },
+    options: [
+      { value: "", label: "Select Language" },
+      { value: "english", label: "English" },
+      { value: "spanish", label: "Spanish" },
+    ],
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: " Customer First Name",
+      type: "text",
+      name: "firstName",
+      placeholder: "Customer First Name",
+    },
+  },
+
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Customer Last Name",
+      type: "text",
+      name: "lastName",
+      placeholder: "Customer Last Name",
+    },
+  },
+  //File upload option
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Customer Pic",
+      type: "file",
+      docFlag: "1",
+      name: "profilePic",
+    },
+  },
+
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "BTN(phone number for call back)",
+      type: "text",
+      name: "btNumber",
+      placeholder: "BTN",
+    },
+  },
+
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Mobile Number(for text)",
+      type: "text",
+      name: "mobileNumber",
+      placeholder: " Mobile Number",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Email Address",
+      type: "email",
+      name: "email",
+      placeholder: "Enter Email",
+    },
+  },
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "D2D/Telephonic",
+      name: "d2dTelephonic",
+    },
+    options: [
+      { value: "", label: "Select D2D/Telephonic" },
+      { value: "D2D", label: "D2D" },
+    ],
+  },
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "State",
+      name: "state",
+    },
+    options: [
+      { value: "", label: "Select State" },
+      { value: "CA", label: "CA" },
+    ],
+  },
+
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "Rate Code",
+      name: "rateCode",
+    },
+    options: [
+      { value: "", label: "Select Rate Code" },
+      { value: "green", label: "GREEN" },
+      { value: "brown", label: "BROWN" },
+    ],
+  },
+  //===============
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "Utility",
+      name: "utility",
+    },
+    options: [
+      { value: "", label: "Select Utility" },
+      { value: "pacificgas", label: "Pacific Gas and Electric" },
+    ],
+  },
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "Plan",
+      name: "plan",
+    },
+    options: [{ value: "", label: "--None--" }],
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Account Number",
+      type: "text",
+      name: "accountNumber",
+      placeholder: "Account Number",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Meter Number",
+      type: "text",
+      name: "meterNumber",
+      placeholder: "Meter Number",
+    },
+  },
+];
+
+const SignUpInputField2 = [
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "House Number",
+      type: "text",
+      name: "houseNumber",
+      placeholder: "House Number",
+      // hasHead: "Service Address",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Street Prefix",
+      type: "text",
+      name: "streetPrefix",
+      placeholder: "Street Prefix",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Street Name",
+      type: "text",
+      name: "streetName",
+      placeholder: "Street Name",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Street Suffix",
+      type: "text",
+      name: "streetSuffix",
+      placeholder: "Street Suffix",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Apt./Suite Number",
+      type: "text",
+      name: "aptSuiteNumber",
+      placeholder: "Apt./Suite Number",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Service City",
+      type: "text",
+      name: "serviceCity",
+      placeholder: "Service City",
+    },
+  },
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "Service State",
+      name: "serviceState",
+    },
+    options: [
+      { value: "", label: "Select Service State" },
+      { value: "CA", label: "CA" },
+    ],
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Zip Code",
+      type: "text",
+      name: "zipcode",
+      placeholder: "Zip Code",
+    },
+  },
+];
+
+const SignUpInputField3 = [
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "House Number",
+      type: "text",
+      name: "billingHouseNumber",
+      placeholder: "House Number",
+      // hasHead: "Billing Address",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Street Prefix",
+      type: "text",
+      name: "billingStreetPrefix",
+      placeholder: "Street Prefix",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Street Name",
+      type: "text",
+      name: "billingStreetName",
+      placeholder: "Street Name",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Street Suffix",
+      type: "text",
+      name: "billingStreetSuffix",
+      placeholder: "Street Suffix",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Apt./Suite Number",
+      type: "text",
+      name: "billingAptSuiteNumber",
+      placeholder: "Apt./Suite Number",
+    },
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Service City",
+      type: "text",
+      name: "billingServiceCity",
+      placeholder: "Service City",
+    },
+  },
+  {
+    type: "dropdown",
+    class: styles.inputClass,
+    attribute: {
+      label: "Service State",
+      name: "billingServiceState",
+    },
+    options: [
+      { value: "", label: "Select Service State" },
+      { value: "CA", label: "CA" },
+    ],
+  },
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Zip Code",
+      type: "text",
+      name: "billingZipCode",
+      placeholder: "Zip Code",
+    },
+  },
+];
+const signUpPart1 = {
+  // title: "Type Of Application",
+  css: {
+    width: "100%",
+    height: "100%",
+    backgroundImage: "linear-gradient(15deg, #4b79a1 0%, #283e51 100%)",
+    margin: "20px",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    // backgroundColor:"blue"
+  },
+  class: "personalDetailContainer",
+  fields: SignUpInputField1,
+};
+const signUpPart2 = {
+  title: "Service Address",
+  css: {
+    width: "100%",
+    height: "100%",
+    backgroundImage: "linear-gradient(15deg, #4b79a1 0%, #283e51 100%)",
+    margin: "20px",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    fontFamily: " 'Nunito', sans-serif",
+    letterSpacing: "2px",
+    // backgroundColor:"blue"
+  },
+  class: "personalDetailContainer",
+  fields: SignUpInputField2,
+};
+
+const signUpPart3 = {
+  title: "Billing Address",
+  css: {
+    width: "100%",
+    height: "100%",
+    backgroundImage: "linear-gradient(15deg, #4b79a1 0%, #283e51 100%)",
+    margin: "20px",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    fontFamily: " 'Nunito', sans-serif",
+    letterSpacing: "2px",
+    // backgroundColor:"blue"
+  },
+  class: "personalDetailContainer",
+  fields: SignUpInputField3,
+};
+const customerSignUpPart1 = {
+  title: "Customer Sign Up Info",
+  css: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundImage: "linear-gradient(15deg, #4b79a1 0%, #283e51 100%)",
+    borderRadius: "8px",
+    fontFamily: " 'Nunito', sans-serif",
+    letterSpacing: "2px",
+  },
+  class: styles.applicantPersonalDetailContainer,
+  subsection: [signUpPart1],
+};
+
+const customerSignUpPart2 = {
+  // title: "Customer Sign Up Info",
+  css: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundImage: "linear-gradient(15deg, #4b79a1 0%, #283e51 100%)",
+    borderRadius: "8px",
+  },
+  class: styles.applicantPersonalDetailContainer,
+  subsection: [signUpPart2],
+};
+const customerSignUpPart3 = {
+  // title: "Customer Sign Up Info",
+  css: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundImage: "linear-gradient(15deg, #4b79a1 0%, #283e51 100%)",
+    borderRadius: "8px",
+  },
+  class: styles.applicantPersonalDetailContainer,
+  subsection: [signUpPart3],
+};
+
+const section = [customerSignUpPart1, customerSignUpPart2, customerSignUpPart3];
+
+export default section;

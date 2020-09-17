@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Peta&family=Nunito&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.commonbtn {
+  padding: 15px 30px 15px 30px;
+  /* margin: 10px; */
+  background-color: #000428;
+  color: white;
+  width: 25%;
+  min-width: 180px;
+  border-radius: 15px;
+  background: linear-gradient(to right, #000428, #004e92);
+  border: 0px;
+  font-size: large;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.commonbtn:focus {
+  outline: none;
+  border: 2px solid salmon;
+}
+
+input[type="checkbox"] {
+  /* position: relative; */
+  cursor: pointer;
+  height: 22px;
+  width: 22px;
+}
+
+.applicantPersonalDetailContainer {
+  /* background-color: blueviolet; */
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.inputCheckboxClass > label {
+  width: 850px;
+  /* word-wrap: break-word; */
+  /* background-color: red; */
+  padding: 5px 20px 5px 40px;
+}
+
+.inputAckCheckboxClass > label {
+  width: 850px;
+  /* word-wrap: break-word; */
+  /* background-color: red; */
+  padding: 5px 20px 5px 40px;
+}
+
+.inputClass {
+  /* background-color: darkgoldenrod; */
+  /* text-align: center; */
+  /* padding-right: 15px; */
+  display: flex;
+  align-items: center;
+}
+.inputClass > label {
+  font-weight: bold;
+  padding-right: 30px;
+  width: 300px;
+  text-align: right;
+  font-size: large;
+  color: white;
+  margin-top: 0;
+  /* background-color: aqua; */
+  /* float: left; */
+}
+
+[type="text"],
+[type="date"],
+[type="email"],
+[type="password"],
+select {
+  width: 420px;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* background-color: red; */
+  font-size: large;
+  /* box-shadow: 0 2px 4px #000428, 0 2px 2px #004e92; */
+  /* background: white; */
+}
+
+[type="text"],
+[type="date"],
+[type="email"],
+[type="password"],
+select :focus {
+  outline: 0 !important;
+}
+
+[type="file"] {
+  max-width: 205px;
+  padding-left: 4px;
+  height: 40px;
+  /* background-color: gray; */
+  border-radius: 5px;
+}
+
+.inputClass {
+  padding-right: 4px;
+  padding-bottom: 4px;
+}
+.inputClass > label {
+  text-align: right;
+}
+
+.inputAckCheckboxClass > label {
+  width: 100%;
+  /* word-wrap: break-word; */
+}
+
+.inputCheckboxClass > label {
+  width: 100%;
+}
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++          organizational Form          ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+@media only screen and (max-width: 600px) {
+  .inputClass {
+    flex-direction: column;
+  }
+}

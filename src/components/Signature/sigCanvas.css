@@ -1,0 +1,15 @@
+.signatureCanvas {
+  border: 1px solid black;
+  /* width: 100%; */
+  /* min-height: 500px; */
+  position: static !important;
+  z-index: 1 !important;
+ width: 300px;
+  min-height:200px !important;
+  background-color: white !important;
+  margin-bottom: 10px;
+}
+
+.signContainer > button {
+  margin-top: 10px !important;
+}
