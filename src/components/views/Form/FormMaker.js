@@ -1,11 +1,12 @@
 import React, { Component, useEffect } from "react";
 import { FormikTextInput, FormikCheckBox, FormikDropDown } from "./SignUpForm";
-import { Formik, Form, useField } from "formik";
+import { Formik, Form, useField, yupToFormErrors } from "formik";
 import styles from "./applicantPersonalDetails.module.css";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import Swal from "sweetalert2";
 import { client } from "./../../../index";
-import { Language } from "@material-ui/icons";
+import Config from "./../../../Config/config"
+import * as Yup from "yup";
 
 const CONSTANTS = {
   inputTextField: 1,
@@ -13,11 +14,6 @@ const CONSTANTS = {
   subSectionSelector: 3,
 };
 
-const ADD_NEWUSER = gql`
-  mutation AgentRegistration($data: AgentRegistrationObject) {
-    AgentRegistration(data: $data)
-  }
-`;
 
 const CUSTOMERDETAILS = gql`
   mutation CustomerDetails($data: CustomerDetailsObject) {
@@ -55,16 +51,6 @@ class FormMaker extends Component {
         });
         response = response.data.CustomerDetails;
         break;
-
-      case 2:
-        response = await client.mutate({
-          mutation: ADD_NEWUSER,
-          variables: {
-            data: data,
-          },
-        });
-        response = response.data.AgentRegistration;
-        break;
     }
     console.log("rsponse++++++++++++++", response);
 
@@ -75,7 +61,7 @@ class FormMaker extends Component {
         icon: "success",
       }).then((result) => {
         if (result.value) {
-          window.location = "/";
+          window.location = "/form";
         }
       });
     } else {
@@ -131,16 +117,24 @@ class FormMaker extends Component {
             initialValues={{
               formType: "Bolt Energy: WNS Text TPV E-sig CA",
               // language: "english",
+              repId:"",
+              firstName:""
             }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(async () => {
                 let data = JSON.stringify(values, null, 2);
-                alert(data)
+                // alert(data)
                 data = JSON.parse(data);
                 this.apiHandler(data);
                 setSubmitting(false);
               }, 400);
             }}
+            // validationSchema={Yup.object().shape({
+            //   repId:Yup.string().required("Required"),
+            //   firstName: Yup.string()
+            // .max(15, "Must be 15 characters or less")
+            // .required("Required"),
+            // })}
           >
             <Form style={{ padding: 0, backgroundColor: "transparent" }}>
               {section.map((container) => {
@@ -283,6 +277,34 @@ const ComponentSelector = (
                 height: "40px",
               }}
               type="button"
+              onClick={async () => {
+                const data = new FormData();
+                data.append("file", file);
+
+                let response = await fetch(
+                  Config.API_URL +
+                    "/upload?tk=" +
+                    localStorage.getItem("SessionToken") +
+                    "&docFlag=" +
+                    attributes.docFlag,
+                  { method: "post", body: data }
+                );
+                console.log("respose when upload", response.status);
+                if (response.status == 200) {
+                  Swal.fire({
+                    title: "File Uploaded !",
+                    text: "successfully",
+                    icon: "success",
+                  })
+                } else {
+                  console.log("error response", response.status);
+                  Swal.fire({
+                    title: "Error !",
+                    text: response.status,
+                    icon: "error",
+                  })
+                }
+              }}
             >
               Upload
             </button>

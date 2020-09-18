@@ -83,7 +83,7 @@ export default function CenteredTabs({teamsData}) {
         <Tab label="Teams" value={0} />
         {/* <Tab label="My Calendar" value={2} /> */}
         <Tab label="Agents" value={1} />
-        <Tab label="Customers" value={2} />
+        {/* <Tab label="Customers" value={2} /> */}
       </Tabs>
 
       {/* <TabPanel value={value} index={1}>

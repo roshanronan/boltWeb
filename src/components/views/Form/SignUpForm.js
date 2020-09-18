@@ -15,7 +15,7 @@ const FormikTextInput = ({ label, ...props }) => {
       <input className="text-input" {...field} {...props} />
 
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <div  className="error">{meta.error}</div>
       ) : null}
     </>
   );

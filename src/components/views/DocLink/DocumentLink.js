@@ -1,587 +1,463 @@
-import React, { Component, useState, useRef } from "react";
+import React, { Component } from "react";
 import "./Document.css";
-import SignatureCanvas from "react-signature-canvas";
-import Popup from "reactjs-popup";
-import SignaturePad from "react-signature-canvas";
-import CustomerSignature from "./../../Signature/sigCanvas";
+import { client } from "../../../index";
+import { gql } from "@apollo/client";
 
-// class CustomerSignature extends Component{
-//   state = {trimmedDataURL: null}
-//   sigPad = {}
-//   clear = () => {
-//     this.sigPad.clear()
-//   }
-//   trim = () => {
-//     this.setState({trimmedDataURL: this.sigPad.getTrimmedCanvas()
-//       .toDataURL('image/png')})
-//   }
-//   render () {
-//     let {trimmedDataURL} = this.state
-//     return <div className="signContainer">
-//       <SignatureCanvas penColor='green'
-//     canvasProps={{width: 500, height: 200, className: 'sigCanvas'}} />
-//       {/* <div className="sigContainer">
-//         <SignaturePad canvasProps={{className: "sigPad"}}
-//           ref={(ref) => { this.sigPad = ref }} />
-//       </div>
-//       <div>
-//         <button className="sigButtons" onClick={this.clear}>
-//           Clear
-//         </button>
-//         <button className="sigButtons" onClick={this.trim}>
-//           Trim
-//         </button>
-//       </div>
-//       {trimmedDataURL
-//         ? <img className="sigImage"
-//           src={trimmedDataURL} />
-//         : null} */}
-//     </div>
-//   }
-
-// }
-
-// let sigCanvas=React.createRef();
-// const CustomerSignature=()=>{
-//   return(<><div>
-
-//     <SignaturePad
-//               ref={sigCanvas}
-//               canvasProps={{
-//                 className: "signatureCanvas"
-//               }}
-//             />
-//     </div></>)
-// }
+const GET_USER_DETAILS = gql`
+  query GetUserDetail($userid: ID) {
+    GetUserDetail(userid: $userid) {
+      email
+      name
+    }
+  }
+`;
 
 class DocumentLink extends Component {
+  state = { name: undefined };
+
+  componentDidMount = async () => {
+    let UrlPath = window.location.pathname;
+    let customerId = parseInt(
+      UrlPath.substring(UrlPath.indexOf(":") + 4, UrlPath.length)
+    );
+    console.log("customerId", customerId);
+    let response = await client.query({
+      query: GET_USER_DETAILS,
+      variables: { userid: customerId },
+    });
+    this.setState({ name: response.data.GetUserDetail.name });
+  };
+
   render() {
     return (
-      <div className="docContainer">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "20px",
-          }}
-        >
-          <h4 style={{ fontWeight: "600", color: "blue", fontSize: "20px" }}>
-            Bolt Energy Services
-          </h4>
-          <h4>RESIDENTIAL AND SMALL COMMERCIAL</h4>
-          <h4>NATURAL GAS TERMS OF SERVICE</h4>
-          <h4>INDIANA MARKETS</h4>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5>INDIANA TERMS & CONDITIONS</h5>
+      <>
+        <div id="documentone" className="docContainer">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "20px",
+            }}
+          >
+            <h4 style={{ fontWeight: "600", color: "blue", fontSize: "20px" }}>
+              Bolt Energy Services
+            </h4>
+            <h4>RESIDENTIAL AND SMALL COMMERCIAL</h4>
+            <h4>Carbon Offset Program</h4>
+            <h4>NATURAL GAS TERMS OF SERVICE</h4>
+            <h4>INDIANA MARKETS</h4>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Terms of Service</h5>
+            <p>
+              Public Utilities Code Section 986 requires that each registered
+              Core Transport Agent (CTA) offering natural gas (gas) service to
+              residential and small commercial customers provide the potential
+              customer with this written notice prior to the commencement of
+              service. This written notice describes the price, terms and
+              conditions of service that will apply to you, if you decide to
+              purchase gas from us. Bolt Energy is a registered CTA with the
+              California Public Utilities Commission. Our CTA registration
+              number is CTA0039. Our address is 75 Lake Road Suite 215 Congers,
+              N.Y. 10920. Our toll-free telephone number is (800) 213-2870.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Summary</h5>
+            <p>
+              This notice contains important information regarding the price,
+              terms, and conditions of service with our company. This summary
+              describes some of the more important points covered in this
+              notice. You should, however, read the entire notice so that you
+              understand all of the price, terms, and conditions which apply to
+              you. Your total price of gas is estimated to be $1.49 per day.
+              This total price of gas includes the estimated price of gas, the
+              estimated price to transport the gas to your home or business, and
+              all other estimated charges. In addition to your payments to us,
+              you are also obligated to pay your existing gas utility certain
+              recurring charges for gas service, and charges regulated by the
+              California Public Utilities Commission. You may also have to pay
+              your gas utility for certain non-recurring charges regulated by
+              the California Public Utilities Commission. You should refer to
+              your gas utility bill or contact your gas utility to determine the
+              amount for each of those charges. If you choose our company to be
+              your CTA, you agree to let us be your gas provider for a period of
+              24 months from the enrollment effective date, and then on a
+              month-to-month basis, unless you choose another gas service
+              provider or sign a new service agreement with us. Should you
+              decide to terminate this arrangement earlier, you will be
+              responsible of paying a cancellation fee of $199. You may rescind
+              this agreement by calling our toll free number within 3 business
+              days of the sales agreement, or by sending 30 days written notice
+              prior to the expiration of the term.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Your Right To Choose</h5>
+            <p>
+              You have the right to choose who you want to purchase your gas
+              from. If you select a CTA to supply you with gas, your existing
+              gas utility will still be responsible for ensuring that the gas is
+              transported to your residence or business. If you choose our
+              company to be your CTA, we do not offer a low income assistance
+              program that provides a discount on your gas bill. You may be
+              eligible for low income assistance for the gas transport service
+              provided by your existing gas utility. You should contact the gas
+              utility to see if you are eligible for such assistance, and to
+              apply with the gas utility if you are eligible for such assistance
+              .In selecting a CTA, you should be aware that the CTA will require
+              you to enter into a contract for a fixed period of time, rather
+              than on a month to month basis. If you enter into a contract for a
+              fixed period of time, and you decide to switch your gas provider
+              before the contract term is up, you may be obligated to pay
+              certain fees or penalties for early termination of the contracts.
+              If you choose Bolt Energy to be your CTA, then you agree to let us
+              be your natural gas provider for the number of months specified in
+              your contract. Should any CTA refuse to provide you with gas
+              service, you have the right to request, within thirty days from
+              the date service was denied, that the CTA send you a written
+              explanation of why the CTA denied you service.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Verification That You Want A New Provider of Gas</h5>
+            <p>
+              If you decide to purchase your gas from someone other than your
+              current provider of gas, the law requires the new CTA or the gas
+              utility to verify that you agree to the change in your provider.
+              This verification can take place in several ways. If you are a
+              residential customer and you are contacted by a CTA, and you agree
+              to switch to the CTA as your new gas provider, the CTA is required
+              to connect you to a “third-party verification company,” or to have
+              the third-party verification company call you, to confirm that you
+              agree to switch to the new CTA. The third-party verification
+              company may ask you for certain identifying information such as
+              your name, your address, your current gas provider and account
+              number, and whether you agree to the switch to the new CTA that
+              you have selected. You should be careful not to disclose any more
+              information than necessary to confirm the switch. The third-party
+              verification company can use the information that you provide only
+              to confirm that you agree to the switch in provider. An
+              unauthorized release of the information you supplied to the third-
+              party verification company is grounds for a civil lawsuit. You may
+              also request the third-party verification company for a copy of
+              the record that confirms you have agreed to switch to the new
+              provider of your choice. If you are a residential customer and you
+              directly call the CTA that you want to switch to, your new gas
+              provider is not required to use the third-party verification
+              process described above. Instead, your contact with the new
+              provider is sufficient to confirm that you agree to switch to the
+              CTA you called. If you are a small commercial customer, the CTA
+              must confirm your agreement to switch to the new provider in one
+              of four ways. First, the new CTA can use the third-party
+              verification process described above. The second method is for the
+              new CTA to mail you an information package regarding your
+              agreement to switch, and you return the written confirmation to
+              switch. The third method is that the new CTA may have you sign a
+              document which explains to you the effect of the change to a new
+              CTA. And the fourth method is for the new CTA to obtain your
+              consent through electronic means, such as e-mail or a facsimile
+              authorization consenting to the switch to the new CTA.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Your Total Price Of Gas</h5>
+            <p>
+              You will pay a daily fee of $1.49, plus taxes and fees. Admin fee
+              of $0.33 per day may apply. In addition to your payments to us,
+              you are also obligated to pay your existing gas utility certain
+              recurring charges for gas service, and charges regulated by the
+              California Public Utilities Commission. You may also have to pay
+              your gas utility for certain non-recurring charges regulated by
+              the California Public Utilities Commission. You should refer to
+              your gas utility bill or contact your gas utility to determine the
+              amount for each of those charges.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Your total price will consist of the following:</h5>
+            <h5>1.Our Recurring Charges: </h5>
+            <p>
+              You will pay a daily fee of $1.49, plus taxes and fees. Admin fee
+              of $0.33 per day may apply
+            </p>
+            <h5>2.Gas Utility Charges: </h5>
+            <p>
+              In addition to your payments to us, you are also obligated to pay
+              your existing gas utility certain recurring charges for gas
+              service, and charges regulated by the California Public Utilities
+              Commission. You may also have to pay your gas utility for certain
+              non-recurring charges regulated by the California Public Utilities
+              Commission. You should refer to your gas utility bill or contact
+              your gas utility to determine the amount for each of those
+              charges.{" "}
+            </p>
+          </div>
           <p>
-            You authorize Bolt Energy Services LLC. (“Company”), to change your
-            natural gas supplier, as the case may be, to Company and to supply
-            your home or small business with all the Services you need, subject
-            to the eligibility requirements of your local natural gas utility
-            (“Utility”). Company is a supplier of energy products. These Terms
-            and Conditions create your agreement with the Company (“Agreement”)
-            and supersedes any oral or written statements made in connection
-            with this Agreement or the supply of your Services. Capitalized
-            terms used herein have the meaning ascribed to them as listed within
-            the Agreement as well as in the “Definitions” section herein.
+            The following table provides you with an estimate of your monthly
+            gas bill based on the total price of gas delivered to your home or
+            business and estimated monthly usage. All usage levels may not be
+            applicable for fixed daily rate product.{" "}
           </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>SERVICES</h5>
-          <p>
-            Upon successful completion and receipt of all customer enrollment
-            requirements, Company will supply gas Services for your home or
-            small business. Company is a retail marketer of Services and is not
-            your Utility. Your Utility will continue to deliver Services to your
-            home or small business, read your meter, send your bill and make
-            repairs and charge you for its services related to delivering your
-            commodities. Your Utility will also respond to emergencies and
-            provide other traditional utility services. You understand that you
-            are not required to switch your Services to Company. This Agreement
-            is subject to the eligibility requirements of your Utility and
-            Company may choose not to accept this Agreement for any reason. If
-            you are enrolled in any Utility or government programs, enrolling
-            with Company may impact your participation in these programs
-          </p>
-        </div>
+          <table style={{ border: "1px solid black" }}>
+            <tr style={{ border: "1px solid black" }}>
+              <th>Monthly Usage (in therms)</th>
+              <th>Estimated Monthly Bill</th>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>10</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>25</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>50</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>75</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>100</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>150</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>200</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>250</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>275</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>300</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>400</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>500</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>600</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>700</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>800</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>900</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+            <tr style={{ border: "1px solid black" }}>
+              <td style={{ border: "1px solid black" }}>1000</td>
+              <td style={{ border: "1px solid black" }}>$44.99</td>
+            </tr>
+          </table>
 
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>TERM</h5>
-          <p>
-            . Company will begin supplying your Services when the Utility
-            switches your account to Company. Your Agreement will continue for
-            the 12-month Term and will renew thereafter. Your Term is based on
-            monthly billing cycles as determined by your Utility and each
-            monthly billing cycle may not represent a full calendar month. If
-            your Utility bills bimonthly, Company will treat this as two monthly
-            billing cycles. Typically it takes one to two billing cycles for
-            your Service to be switched from your Utility to the Company, but
-            there may be a delay before the Utility switches Services and you
-            understand that Company is not responsible for any such delays. You
-            may receive written notification from your Utility confirming your
-            switch to Company. The Company may terminate this Agreement.
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>Fixed Rate plan</h5>
-          <p>
-            Your commodity rate will be a fixed rate of $0.55 per therm for 12
-            months and will renew thereafter. The rate you pay Bolt energy will
-            include the Commodity Charge and the Interstate Transportation and
-            Storage Charge and monthly administrative fee, if applicable. Your
-            price does not include applicable Indiana sales tax, use tax, local
-            tax or gross receipt taxes imposed by Indiana State Tax Law. You are
-            responsible for any and all taxes (whether passed through to you on
-            LDU’s bill as a separate line item or as part of the price of
-            natural gas, as required by law, rule or regulation) and LDU charges
-            for delivery and distribution services. Except as otherwise provided
-            in this Agreement or as required by law, all taxes of whatsoever
-            kind, nature and description, due and payable with respect to your
-            performance of your obligations under this Agreement, will be paid
-            by you.
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>
-            RESCISSION; TERMINATION
-          </h5>
-          <p>
-            . You may rescind or terminate this Agreement as provided below. a.
-            Right of Rescission. You may rescind this Agreement, without fees or
-            penalties of any kind, at any time prior to the fifth (5th) business
-            day after your receipt of this Agreement (“Rescission
-            Period”).Customer acknowledges that Bolt energy cannot guarantee a
-            switch of Customer’s account by a specific date and hereby holds
-            harmless Bolt energy from any liability for, or arising out of,
-            delays in this process. This Agreement shall remain in effect until
-            you notify Bolt energy in writing or by phone of your intent to
-            cancel at least 30 days prior to your requested end date and until
-            such time as the LDU completes the termination in accordance with
-            its rules.
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>
-            Cancellation Provisions
-          </h5>
-          <p>
-            You may cancel this Agreement without any penalty any time by
-            calling Bolt energy at 1-800-213-2870. If you request to cancel this
-            Agreement, the cancellation will not take effect until the next
-            actual meter read date following the date Bolt energy notifies your
-            LDU. You will be responsible for all payments due hereunder until
-            the cancellation of natural gas service is completed. If for any
-            reason Bolt energy is no longer able to economically continue this
-            Agreement, Bolt energy may terminate this Agreement at any time..
-            This Agreement may be cancelled at the sole discretion of Bolt
-            energy if you fail to meet any of the terms and conditions of this
-            Agreement or if any of the information you have provided to Bolt
-            energy is or becomes untrue. If this Agreement is canceled, expires,
-            or otherwise terminated, you will receive uninterrupted service from
-            the LDU until you designate another provider of natural gas service
-            or service is shut off by the LDU. Only the LDU may shut off your
-            natural gas service.
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>BILLING AND PAYMENT</h5>
-          <p>
-            The Services you purchase from Company will be included in your
-            Utility monthly bill or in a separate invoice from Company. If from
-            the Utility, the Utility will set your payment due date and the
-            payment address. Any bill not paid in full by its due date will
-            incur a late payment fee in accordance with the Utility’s or the
-            Company’s billing and payment policies and procedures. You may be
-            liable for the costs the Company incurs if Company must terminate
-            your Services for failure to pay, such as collection costs or
-            attorney fees. If your Services are terminated for failure to pay,
-            you will be required to re-establish eligibility with your Utility
-            and enter into a new Agreement with Company. Company shall have the
-            right to setoff and net against any undisputed amounts owed by you
-            under this Agreement, and the Company shall additionally have the
-            right to setoff and net against any deposit or security provided by
-            you pursuant to this Agreement any amounts, charges or damages owed
-            by you to Company. .
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>CUSTOMER INFORMATION</h5>
-          <p>
-            All authorizations provided herein will remain in effect for the
-            Term and, if applicable, the Renewal Term of this Agreement;
-            however, authorization may be rescinded by you any time by
-            contacting Company.
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>EMERGENCY. </h5>
-          <p>
-            In the event of an emergency such as a natural gas leak, you should
-            call your Utility. If your Utility is Northern Indiana Public
-            Service Company, call 1-800-634- 3524. You can also call your local
-            emergency personnel at 911 if the emergency warrants.
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>
-            Agency and Point of Sale{" "}
-          </h5>
-          <p>
-            (i) If you are receiving natural gas service, you hereby designate
-            Company as your agent to: (A) arrange and administer contracts and
-            service arrangements between you and your Utility, and between you
-            and the interstate pipeline transporters of your natural gas
-            (including capacity release, re-release, and recall arrangements);
-            (B) nominate and schedule with the interstate pipelines the
-            transportation of your natural gas from the Sales Points to the
-            Delivery Points, and with your Utility for the transportation of
-            your natural gas from the Delivery Points to your premises; and (C)
-            aggregate your natural gas with the natural gas supplies of
-            Company’s other customers in order for you to qualify for
-            transportation service and to address and resolve imbalances (if
-            any) during the term of this Agreement. As your agent, Company will
-            schedule the delivery of a quantity of natural gas at the Sales
-            Points necessary to meet your city gate requirements based on the
-            consumption and other information that Company receives from your
-            Utility. Company, as your agent, will arrange for the transportation
-            of natural gas from the Sales Points to the Delivery Points, and
-            from the Delivery Points to your premises; and (ii) if you are
-            receiving electric service, you hereby designate Company as your
-            agent for the purpose of arranging, contracting for, and
-            administering transmission services (including those provided by
-            your Utility) for the delivery of electricity.
-          </p>
-          <p>
-            Change in Law/Third Party Charges. This Agreement is subject to any
-            federal, state, local, or utility changes in law, which includes
-            changes in legislation, regulatory actions, orders, rules, tariffs,
-            regulations, policies, riders, fees, pricing structures, market
-            structures, capacity charges, and changes in customer load profiles
-            (each, a “Change in Law”). If there is a Change in Law which results
-            in an increased cost to the Company, or Company is prevented,
-            prohibited or frustrated from carrying out its intent under this
-            Agreement, Company may terminate this Agreement with notice to you,
-            or adjust your rate based upon such Change in Law. This provision
-            applies to all rate plans, whether fixed, index or variable. f.
-            Governing Law; Venue; Waiver of Jury Trial. To the maximum extent
-            permitted by law, (i) Venue for any lawsuit brought to enforce any
-            term or condition of this Agreement shall lie exclusively in the
-            State of Indiana; (ii) the Agreement shall be construed under and
-            shall be governed by the laws of the State of Indiana without regard
-            to the application of its conflicts of law principles, and (iii)
-            EACH OF THE PARTIES HERETO IRREVOCABLY WAIVES ANY AND ALL RIGHT TO
-            TRIAL BY JURY IN ANY LEGAL, ARBITRATION OR OTHER PROCEEDING ARISING
-            OUT OF OR RELATING TO THIS AGREEMENT OR THE TRANSACTIONS
-            CONTEMPLATED HEREBY.
-          </p>
-          <p>
-            Non-Waiver. The failure by one party to require performance of any
-            provision shall not affect that party's right to require performance
-            at any time thereafter, nor shall a waiver of any breach or default
-            of this Agreement constitute a waiver of any subsequent breach or
-            default or a waiver of the provision itself. h. Severability. If any
-            provision of this Agreement is held unenforceable, then such
-            provision will be automatically modified to reflect the parties’
-            intention. All remaining provisions of this Agreement shall remain
-            in full force and effect. i. Non-Reliance. You acknowledge that you
-            are not relying on any advice, statements, recommendations or
-            representations of the Company, other than the written
-            representations in this Agreement, (ii) that you understand the
-            risks of entering into this Agreement, including the risk that the
-            Company’s prices may be higher than your Utility’s rates, and you
-            are capable and willing to assume those risks, and (iii) you have
-            made your own decision to enter into this Agreement, after
-            consultation with your own advisors to the extent you deem
-            necessary.
-          </p>
-          <p>
-            Customer Representation. I am at least 18 years old and fully
-            authorized to enter into this Agreement. I am the authorized account
-            holder or have been given proper and binding authorization to change
-            the Services and enter into this Agreement on behalf of the account
-            holder.
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>
-            Information Release and Authorization, Credit Review.
-          </h5>
-          <p>
-            By accepting the Agreement, you authorize Bolt energy to obtain
-            information from the LDU through the Term including, but not limited
-            to, account name, account number, billing address, service address,
-            telephone number, standard offer service type, historical and future
-            natural gas usage, rate classification, meter readings,
-            characteristics of natural gas service, and billing and payment
-            information. You (and your signatory, if signatory is noted as your
-            spouse/civil union partner) agree to Bolt energy obtaining a credit
-            report and investigating your (and, if applicable, signatory’s)
-            credit rating, credit history and Utility bill payment status and
-            history. We are not obligated to accept, or continue performing,
-            this Agreement if you do not meet our credit requirements. You
-            further authorize Bolt energy to release that information to third
-            parties who need to use or be aware of such information in
-            connection with my natural gas service under the Agreement, as well
-            as to Bolt energy ’s affiliates and business partners for marketing
-            purposes. Bolt energy reserves the right to reject your enrollment
-            or terminate the Agreement if you fail to meet minimum or maximum
-            threshold natural gas consumption levels as determined by Bolt
-            energy .
-          </p>
-          <p>
-            MANDATORY ARBITRATION AND CLASS ACTION WAIVER AGREEMENT.Scope of the
-            Arbitration Agreement. Any legal dispute between the parties
-            concerning or arising out of your enrollment, purchase, this
-            Agreement, or the relationship and communications between the
-            parties (“Dispute”) shall be resolved by one arbitrator through
-            binding arbitration using the process explained below. The parties
-            understand and agree that they are waiving their rights to sue or go
-            to court to assert or defend their rights. However, either party may
-            bring an individual claim in small claims court consistent with the
-            jurisdictional and dollar amount limitations that may apply, so long
-            as maintained as an individual claim. The term “Dispute” refers to
-            any dispute, action, claim, or other controversy between BOLT ENERGY
-            , whether in contract, warranty, tort, statute, regulation,
-            ordinance, or any other legal or equitable basis.
-          </p>
-          <p>
-            Informal Dispute Resolution. Either party asserting a Dispute shall
-            first try in good faith to resolve it by providing written notice as
-            specified below to the other party describing the facts and
-            circumstances (including any relevant documentation) and allowing
-            the receiving party 30 days in which to respond. Notice shall be
-            made by first class or registered mail (1) to BOLT ENERGY at the
-            address below or (2) to you at the postal address on file with BOLT
-            ENERGY . Both you and BOLT ENERGY agree that this dispute resolution
-            procedure is a condition precedent which must be satisfied before
-            initiating any arbitration against the other party
-          </p>
-          <p>
-            Right to Opt Out of this Arbitration Agreement. You may opt out of
-            this Arbitration Agreement within the first 30 days after the
-            earliest of the first time you (a) enroll and begin purchasing
-            services from BOLT ENERGY ; or (b) sign up for any further program
-            or service provided by BOLT ENERGY . You may also opt out of this
-            Arbitration Agreement within 30 days after we notify you regarding a
-            material change to this Arbitration Agreement. You may opt out by
-            sending an email through our website or by sending a letter to our
-            address below. You should include your printed name, mailing
-            address, and the words “Reject Arbitration.”
-          </p>
-          <p>
-            How Arbitration Works. Either party may initiate arbitration, which
-            shall be conducted by the American Arbitration Association (“AAA”),
-            under the AAA Commercial or Consumer rules, as applicable, in effect
-            at the time the claim is filed (“AAA Rules”). For information on how
-            to file a claim, copies of the AAA Rules and forms can be located at
-            www.adr.org, or by calling 1-800-778- 7879. Arbitration shall take
-            place in the country of your residence, as determined by your
-            mailing address on file with BOLT ENERGY . We agree to pay or
-            reimburse all costs associated with any arbitration between the
-            parties, including filing fees and arbitrator fees, and agree to
-            waive any right to recover an award of attorneys’ fees and costs
-            against you. The arbitrator’s decision shall be final, binding, and
-            non-appealable. Judgment upon the award may be entered and enforced
-            in any court having jurisdiction.
-          </p>
-          <p>
-            Waiver of Right to Bring Class Action & Representative Claims. All
-            Disputes, whether resolved informally, in small claims court, or
-            through arbitration, shall be brought on an individual basis.
-            Disputes must be brought in the parties’ individual capacity, and
-            not as a plaintiff or class member in any purported class,
-            collective, representative, multiple plaintiff, or similar
-            proceeding (“Class Action”). The parties expressly waive any ability
-            to maintain any Class Action in any forum, and the arbitrator shall
-            not have authority to combine or aggregate similar claims or conduct
-            any Class Action nor make an award to any entity or person not a
-            party to the arbitration. Any claim that all or part of this Class
-            Action waiver is unenforceable, unconscionable, void, or voidable
-            may be determined only by a court of competent jurisdiction and not
-            by an arbitrator. THE PARTIES UNDERSTAND THAT THEY WOULD HAVE HAD A
-            RIGHT TO LITIGATE THROUGH A COURT, TO HAVE A JUDGE OR JURY DECIDE
-            THEIR CASE AND TO BE PARTY TO A CLASS OR REPRESENTATIVE ACTION,
-            HOWEVER, THEY UNDERSTAND AND CHOOSE TO HAVE ANY CLAIMS DECIDED
-            INDIVIDUALLY, THROUGH ARBITRATION.
-          </p>
-          <p>
-            Governing Law. This Arbitration Agreement shall be governed by the
-            Federal Arbitration Act and interpreting federal law. To the extent
-            state law applies to any aspect of this provision or the claim, the
-            law of your residence, as determined by your mailing address on file
-            with BOLT ENERGY , shall apply. Neither party shall sue the other
-            party other than as provided herein or for enforcement of this
-            clause or of the arbitrator’s award; any such suit may be brought
-            only in the federal court encompassing the county where the
-            arbitration took place, or if any such court lacks jurisdiction, in
-            any state court that has jurisdiction. The arbitrator, and not any
-            federal, state or local court, shall have exclusive authority to
-            resolve any dispute relating to the interpretation, applicability,
-            unconscionability, arbitrability, enforceability or formation of
-            this Arbitration Agreement including any claim that all or any part
-            of the Arbitration Agreement is void or voidable. However, the
-            preceding sentence shall not apply to the clause above entitled
-            “Waiver of Right to Bring Class Action & Representative Claims.”
-          </p>
-        </div>
-        <div style={{ padding: "15px" }}>
-          <h5 style={{ textDecoration: "underline" }}>Miscellaneous.</h5>
-          <p>
-            The services provided by Bolt Energy are governed by the terms and
-            conditions of this document and the LDU’s tariff. In the event of
-            non-payment of any charges owed to Bolt Energy , you may be subject
-            to termination of natural gas service and the suspension of
-            distribution service under procedures approved by the IURC. In the
-            event of termination for non-payment, re- enrollment will be
-            required in order to re-establish service with Bolt Energy . This
-            Agreement may be terminated, with no penalty to you, in the event
-            the IURC terminates the Choice program or Bolt Energy is no longer
-            able to participate in the Choice program. You may obtain additional
-            information by contacting Bolt Energy or the LDU by the means
-            provided at the bottom of these Terms of Service
-          </p>
-          <p>
-            If Bolt Energy is rendered unable to perform, in whole or in part,
-            by a Force Majeure event, its performance under this Agreement will
-            be excused for the duration of such event. “Force Majeure” means any
-            act or event that is beyond the reasonable control of Bolt Energy
-            that adversely affects, interrupts, or precludes its performance. In
-            addition, acts of other parties, including without limitation,
-            wholesale suppliers, aggregators, other Suppliers, qualified
-            scheduling entities, LDUs, any governmental authority, and the
-            respective employees and agents of such parties, will also be deemed
-            to be events of Force Majeure.
-          </p>
-          <p>
-            Energy delivery shall continue to be provided by your LDU. Your
-            natural gas service will be provided in accordance with your
-            existing connection requirements unless you request a change by the
-            LDU and pay for the cost of that change. You may not resell or use
-            any natural gas provided under this Agreement as an auxiliary or
-            supplement to any other source of power. The supply of natural gas
-            under this Agreement will be measured at the delivery point by the
-            LDU providing the delivery service in accordance with the terms of
-            the applicable tariff for natural gas service. Bolt Energy and you
-            will be bound by the measurement from the meters owned, installed,
-            maintained and read by the LDU.
-          </p>
-          <p>
-            This Agreement will be governed by, interpreted, construed and
-            enforced in accordance with the laws of the State of Indiana,
-            without regard to principles of conflicts of laws.
-          </p>
-          <p>
-            You may not assign this Agreement or your obligations under this
-            Agreement without Bolt Energy ’s prior written consent. Bolt Energy
-            may assign this Agreement, together with all rights and obligations
-            hereunder, to (i) Bolt Energy ’s natural gas supplier, or such
-            supplier’s designee, (ii) an affiliate of Bolt Energy or to any
-            other person succeeding to all or substantially all of Bolt Energy
-            ’s assets, or (iii) in connection with any financing or other
-            financial arrangement.
-          </p>
-          <p>
-            Any failure by Bolt Energy to enforce any term or condition of your
-            natural gas service or otherwise exercise any right it may have
-            under this Agreement will not be deemed a waiver of any rights to
-            thereafter enforce any or all of the terms or conditions of your
-            service or to exercise rights under this Agreement.
-          </p>
-          <p>
-            Should any provision of this Agreement for any reason be declared
-            invalid or unenforceable by final and applicable order by a court or
-            any regulatory body having jurisdiction, such decisions shall not
-            affect the validity of the remaining portions, and the remaining
-            portions shall remain in effect as if this Agreement had been agreed
-            to without the invalid portion. If any provision of this Agreement
-            is declared invalid, the remainder of this Agreement will be
-            construed so as to give effect to its original intent and effect as
-            near as possible.
-          </p>
-          <p>
-            The provisions of this Agreement concerning payment, limitation of
-            liability, waivers, arbitration and waiver of class actions will
-            survive the termination or expiration of this Agreement.
-          </p>
-          <p>
-            The Indiana Office of Utility Consumers Counselor (“OUCC”) is the
-            State Agency with the statutory responsibility of representing
-            consumers on all utility matters. You may contact the OUCC at
-            www.in.gov/oucc or 888-441-2494 with questions or concerns about
-            Bolt Energy or the Choice program.
-          </p>
-          <p>
-            The parties may execute the Agreement in counterparts, each of which
-            is deemed an original and all of which constitute the same
-            instrument.
-          </p>
+          <div style={{ padding: "15px" }}>
+            <h5>Description of Terms and Conditions of Service</h5>
+            <p>
+              If an advance deposit is required, Public Utilities Code Section
+              985(g) provides that the deposit amount cannot be more than your
+              estimated bill for a three-month period. Although you, the
+              customer, will be purchasing gas from us, we will arrange to have
+              the gas utility send you a single bill for the gas utility’s
+              charges and for our charges. Should you own any past due amounts
+              on your bill, the gas utility is responsible for collecting any
+              past due amount from you. If you fail to pay any past due amount
+              owed to the gas utility, the gas utility may then disconnect your
+              service. If you fail to pay any past due amount owed to us, we may
+              transfer your gas service back to the gas utility, who may then
+              disconnect your gas service if you fail to pay the gas utility’s
+              charge. If your gas service is disconnected, you may be obligated
+              to pay a disconnect fee to the gas utility. In order to
+              reestablish gas service, you may have to pay a reconnection fee to
+              the gas utility
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Complaint Procedures</h5>
+            <p>
+              Different complaint procedures apply depending upon whom you have
+              a dispute with. If you have a billing-related dispute concerning
+              the gas utility’s charges, or a dispute regarding the manner in
+              which the gas is distributed to your residence, an informal
+              complaint may be submitted to the California Public Utilities
+              Commission (CPUC) for an attempt at resolving the matter. If the
+              matter is not resolved, you may file a formal complaint with the
+              CPUC if you meet the conditions set forth in Article 4 of the
+              CPUC’s Rules of Practice and Procedure. If you have a
+              billing-related or service-related dispute with us, the CTA, you
+              may complain to the CPUC. The CPUC shall first attempt to
+              informally resolve your complaint through the informal complaint
+              process. If the matter cannot be resolved satisfactorily, you may
+              file a formal complaint against us with the CPUC or file a
+              complaint against us in civil court. You must pay your bill in
+              full, except for the disputed amount, during the pendency of the
+              dispute, and such payment shall be refunded if warranted by the
+              CPUC’s decision. If you file or submit a complaint with the CPUC
+              against a gas utility or a CTA, you gas service cannot be
+              disconnected if you deposit the disputed amount with the CPUC in
+              an escrow account. If you have any questions regarding the CPUC
+              complaint procedures, you may contact the Consumer Affairs Branch
+              (CAB) or the Public Advisor’s Office of the CPUC. The CAB may be
+              reached at 1-800 649-7570, and the Public Advisor’s Office may be
+              reached at 1-866-849-8390.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Carbon Offset Program </h5>
+            <p>
+              Your natural gas bundle funds Carbon Offset Projects that reduce
+              emissions equivalent to your usage. .A Carbon Offset is a
+              voluntary reduction in greenhouse gas emissions that can be used
+              to balance emissions produced elsewhere. Since every ccf of
+              natural gas used will emit about 11.8 lbs of CO2 (5.34 kg CO2),
+              your bundled product negates the environmental impact from natural
+              gas use in your home by our purchase of a Carbon Offset through a
+              Carbon Offset Program. A Carbon Offset purchased through a Carbon
+              Offset Program represents the removal of 1 metric ton of CO2
+              equivalent (CO2e) from the atmosphere. Carbon Offset: A GHG
+              reduction that is created and monetized after being evaluated to
+              ensure it is real, additional, quantifiable, permanent, verifiable
+              and enforceable. Carbon Offset Project: Infrastructure created to
+              produce an offset. Carbon Offset Program: An established entity
+              with a set of rules that exist to ensure offsets meet stringent
+              requirements to ensure transparency and credibility. Some examples
+              include the American Carbon Registry (ACR), the Climate Action
+              Reserve (CAR), the Gold Standard (GS), and the Verified Carbon
+              Standard (VCS) Program
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Notice Of Your Right To Cancel</h5>
+            <p>
+              You have the right to cancel your contract for gas service that
+              you have entered into with us. For a residential gas customer, you
+              have the right to cancel the contract until midnight of the
+              thirtieth day after the date of the first bill for CTA service has
+              been issued to you the customer. For a core commercial gas
+              customer, you have the right to cancel the contract until midnight
+              of the third business day after the day on which you the customer
+              signs an agreement or offer to purchase from us, the CTA. Core
+              commercial gas customers can also waive their right to cancel
+              under Public Utilities Code §989.1(a) by signing a separate
+              written waiver of your right to cancel and returning that waiver
+              to the CTA. This separate written waiver must be presented to you
+              at the time you sign the agreement or offer to purchase from us,
+              the CTA. Should you decide to terminate this arrangement within
+              the 24 months term, you will be responsible of paying a
+              cancellation fee of $199. To cancel the CTA contract with us, you
+              may send us, at the address listed on page 1 of this notice,
+              written notice of your cancellation within the time period
+              specified above. You may also exercise your right to cancel by
+              contacting us at the telephone number listed on page 1 of this
+              notice, and informing us that you want to cancel the CTA contract
+              with us. No fee or penalty may be imposed against you for
+              exercising your right to cancel within the applicable time
+              periods.
+            </p>
+          </div>
+
+          <div style={{ padding: "15px" }}>
+            <h5 style={{ textDecoration: "underline" }}>
+              Class Action Waiver:{" "}
+            </h5>
+            <p>
+              By entering into this contract, you are giving up your right to
+              arbitrate or litigate in court any dispute or claim as a class
+              action or collective action, either as a class representative or
+              member or collective action participant. You further agree that
+              your rights as a consumer under the CCPA are neither waived nor
+              impaired by virtue of proceeding in a non-class, non-consolidated
+              and non-joint arbitration authorized under this agreement, nor
+              shall proceeding in a non-class, non-collective impairment of your
+              rights. In the event an arbitrator deems this class action waiver
+              invalid, then the arbitration provision above shall be null and
+              void.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5 style={{ textDecoration: "underline" }}>
+              Waiver of Right to Trial by Jury{" "}
+            </h5>
+            <p>
+              In arbitration. each party expressly and irrevocably waives their
+              right to a trial by jury of any dispute or claim arising out of or
+              relating to this agreement, including claims arising under the
+              California Consumer Privacy Act or any other federal state laws.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Assignment. </h5>
+            <p>
+              You may not assign this agreement without prior written consent of
+              the Company. Company reserves the right to sell, transfer, pledge
+              or assign this Agreement and your account, and related revenues
+              and proceeds for financial purposes or in connection with a sale.
+              This agreement is binding upon the parties hereto and their
+              respective successors and legal assigns.
+            </p>
+          </div>
+          <div style={{ padding: "15px" }}>
+            <h5>Your Rights If You Are Denied Service By The CTA</h5>
+            <p>
+              If you are offered gas service by us, the CTA, and we decline to
+              provide the service to you, you have the right to request that we
+              provide you with a written reason as to why we declined to provide
+              you with service. Bolt reserves the right at its discretion to
+              terminate this agreement. Your request for the written reason must
+              be made within 35 days from the date that we declined to provide
+              service to you. We then have 30 days from your request to provide
+              you with the written reason as to why we declined to provide
+              service to you. If you disagree with the written reason as to why
+              we declined to provide service to you, you may submit an informal
+              complaint to the CPUC to see if the CPUC can informally resolve
+              this issue.
+            </p>
+          </div>
           <div style={{ margin: "0" }}>
             Contact Information.
-            <p style={{ margin: "0" }}>Energy Services Company:</p>
+            <p style={{ margin: "0" }}>Bolt Energy Services LLC </p>
             <p style={{ margin: "0" }}>
-              Bolt Energy Services, LLC 75 Lake Road Suite 215
+              Address: 75 Lake Road Suite 215 Congers, N.Y. 10920
             </p>
-            <p style={{ margin: "0" }}>Congers, N.Y. 10920</p>
-            <p style={{ margin: "0" }}>1-800-213-2870</p>
+            <p style={{ margin: "0" }}>
+              Website:
+              <a href="http://www.Boltenergyservices.com">
+                www.Boltenergyservices.com
+              </a>
+            </p>
+            <p style={{ margin: "0" }}>Phone: 800-213-2870 (Toll Free)</p>
+            <p style={{ margin: "0" }}>
+              Hours of Operation: Mon-Fri 9:00am – 5:00pm (Eastern Time)
+            </p>
+            {this.state.name != undefined ? this.state.name : ""}
           </div>
-          <a href="http://www.BOLTENERGYSERVICES.com">
-            www.BOLTENERGYSERVICES.com
-          </a>
-          <p>
-            Hours of Operation: Monday through Friday 9:00 a.m. to 5:00 pm
-            (Eastern Time)
-          </p>
-          <p style={{ margin: "0" }}>Local Distribution Utility:</p>
-          <p style={{ margin: "0" }}>
-            Northern Indiana Public Service Company (NIPSCO)
-          </p>
-          <p style={{ margin: "0" }}>801 E. 86th Ave.</p>
-          <p style={{ margin: "0" }}>Merrillville, IN 46410</p>
-          <p style={{ margin: "0" }}>1-800-464-7726</p>
-          <span>
-            <a href="http://www.nipsco.com ">www.nipsco.com </a>
-          </span>
-          In
-          <p>Public Utilities Commission:</p>
-          <p style={{ margin: "0" }}>Indiana Utility Regulatory Commission</p>
-          <p style={{ margin: "0" }}>101 West Washington Street, Suite 1500E</p>
-          <p style={{ margin: "0" }}>Indianapolis, IN 46204.</p>
-          <p style={{ margin: "0" }}>1-800-851-4268</p>
-          <span>
-            <a href="http://www.in.gov/iurc ">www.in.gov/iurc</a>
-          </span>
-          In
-          <p>
-            {" "}
-            <b>
-              By signing below, I acknowledge and agree to the above also, that
-              I am the account holder and I desire to enter into this Agreement
-              with Bolt Energy.{" "}
-            </b>
-          </p>
-          <div style={{ display: "flex" }}>
-            {" "}
-            <label>Customer Name: </label>{" "}
-            <h4 style={{ textDecoration: "underline", marginLef: "2px" }}>
-              ___________________
-            </h4>
-          </div>
-          <div style={{ display: "flex" }}>
-            <label>Customer Signature: </label>{" "}
-            <h4 style={{ textDecoration: "underline", marginLef: "2px" }}>
-              ___________________
-            </h4>
-          </div>
-          {/* <label>Date: </label> <h5 style={{textDecoration:"underline"}}>{new Date()}</h5> */}
         </div>
-        {/* <CustomerSignature/> */}
-        <CustomerSignature />
-
-        <button> Submit </button>
-      </div>
+      </>
     );
   }
 }

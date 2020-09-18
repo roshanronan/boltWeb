@@ -9,7 +9,6 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Register from "./components/views/RegisterAgent/Register";
 import DocumentLink from "./components/views/DocLink/DocumentLink";
 import DocumentLink2 from "./components/views/DocLink/DocumentLink2";
-import CustomerSignature from "./components/Signature/sigCanvas"
 
 const particlesJS = window.particlesJS;
 const particlesJSON = {
@@ -142,16 +141,13 @@ const AppRouter = () => {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/document">
-          <DocumentLink />
-        </Route>
-        <Route path="/document2:id">
+        <Route path="/document2:id">          
           <DocumentLink2 />
         </Route>
-
-        <Route path="/sign">
-          <CustomerSignature/>
+        <Route path="/document:id">
+          <DocumentLink />
         </Route>
+
 
         <Route path="/">
           <NewLogin />

@@ -26,6 +26,7 @@ componentDidMount=async()=>{
     query: AllTeam,
     context:{request:{authorization:"Bearer "+localStorage.getItem("SessionToken")}}
   });
+
   res = res.data.AllTeams;
   console.log("-----data---", res);
   this.setState({teamsData:res})

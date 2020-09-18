@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import {ExportCSV} from "./../ExportToExcel/export"
 
 const useRowStyles = makeStyles({
   root: {
@@ -47,6 +48,7 @@ function Row(props) {
     
   return (
     <React.Fragment>
+
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton
@@ -133,12 +135,17 @@ const rows = [
 export default function CollapsibleTable({teamsData}) {
   console.log("=======See Me ------",teamsData)
   return (
+    <>
+    {/* <Button variant="contained" color="primary" style={{margin:"10px 0"}} >Export 
+    to Excel</Button> */}
+    {/* <ExportCSV csvData={teamsData} fileName="Test"  /> */}
     <TableContainer component={Paper}>
+      
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>teamId</TableCell>
+            <TableCell>Team Id</TableCell>
             <TableCell align="right">TeamName</TableCell>
             <TableCell align="right">Sales</TableCell>
             <TableCell align="right">created At</TableCell>
@@ -152,5 +159,6 @@ export default function CollapsibleTable({teamsData}) {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }

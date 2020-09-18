@@ -20,6 +20,7 @@ const SignUpInputField1 = [
       label: "Rep Id",
       type: "text",
       name: "repId",
+      required: "true",
       placeholder: "Rep Id",
     },
   },
@@ -29,6 +30,7 @@ const SignUpInputField1 = [
     attribute: {
       label: "Language",
       name: "language",
+      required: "true",
     },
     options: [
       { value: "", label: "Select Language" },
@@ -43,6 +45,7 @@ const SignUpInputField1 = [
       label: " Customer First Name",
       type: "text",
       name: "firstName",
+      required: "true",
       placeholder: "Customer First Name",
     },
   },
@@ -54,6 +57,7 @@ const SignUpInputField1 = [
       label: "Customer Last Name",
       type: "text",
       name: "lastName",
+      required: "true",
       placeholder: "Customer Last Name",
     },
   },
@@ -76,6 +80,7 @@ const SignUpInputField1 = [
       label: "BTN(phone number for call back)",
       type: "text",
       name: "btNumber",
+      required: "true",
       placeholder: "BTN",
     },
   },
@@ -97,6 +102,7 @@ const SignUpInputField1 = [
       label: "Email Address",
       type: "email",
       name: "email",
+      required: "true",
       placeholder: "Enter Email",
     },
   },
@@ -106,6 +112,7 @@ const SignUpInputField1 = [
     attribute: {
       label: "D2D/Telephonic",
       name: "d2dTelephonic",
+      required: "true",
     },
     options: [
       { value: "", label: "Select D2D/Telephonic" },
@@ -118,6 +125,7 @@ const SignUpInputField1 = [
     attribute: {
       label: "State",
       name: "state",
+      required: "true",
     },
     options: [
       { value: "", label: "Select State" },
@@ -131,6 +139,7 @@ const SignUpInputField1 = [
     attribute: {
       label: "Rate Code",
       name: "rateCode",
+      required: "true",
     },
     options: [
       { value: "", label: "Select Rate Code" },
@@ -145,6 +154,7 @@ const SignUpInputField1 = [
     attribute: {
       label: "Utility",
       name: "utility",
+      required: "true",
     },
     options: [
       { value: "", label: "Select Utility" },
@@ -157,6 +167,7 @@ const SignUpInputField1 = [
     attribute: {
       label: "Plan",
       name: "plan",
+      // required:"true",
     },
     options: [{ value: "", label: "--None--" }],
   },
@@ -167,6 +178,7 @@ const SignUpInputField1 = [
       label: "Account Number",
       type: "text",
       name: "accountNumber",
+      required: "true",
       placeholder: "Account Number",
     },
   },
@@ -177,6 +189,7 @@ const SignUpInputField1 = [
       label: "Meter Number",
       type: "text",
       name: "meterNumber",
+      required: "true",
       placeholder: "Meter Number",
     },
   },
@@ -190,6 +203,7 @@ const SignUpInputField2 = [
       label: "House Number",
       type: "text",
       name: "houseNumber",
+      required: "true",
       placeholder: "House Number",
       // hasHead: "Service Address",
     },
@@ -201,6 +215,7 @@ const SignUpInputField2 = [
       label: "Street Prefix",
       type: "text",
       name: "streetPrefix",
+      required: "true",
       placeholder: "Street Prefix",
     },
   },
@@ -211,6 +226,7 @@ const SignUpInputField2 = [
       label: "Street Name",
       type: "text",
       name: "streetName",
+      required: "true",
       placeholder: "Street Name",
     },
   },
@@ -221,6 +237,7 @@ const SignUpInputField2 = [
       label: "Street Suffix",
       type: "text",
       name: "streetSuffix",
+      required: "true",
       placeholder: "Street Suffix",
     },
   },
@@ -231,6 +248,7 @@ const SignUpInputField2 = [
       label: "Apt./Suite Number",
       type: "text",
       name: "aptSuiteNumber",
+      required: "true",
       placeholder: "Apt./Suite Number",
     },
   },
@@ -241,6 +259,7 @@ const SignUpInputField2 = [
       label: "Service City",
       type: "text",
       name: "serviceCity",
+      required: "true",
       placeholder: "Service City",
     },
   },
@@ -250,6 +269,7 @@ const SignUpInputField2 = [
     attribute: {
       label: "Service State",
       name: "serviceState",
+      required: "true",
     },
     options: [
       { value: "", label: "Select Service State" },
@@ -263,6 +283,7 @@ const SignUpInputField2 = [
       label: "Zip Code",
       type: "text",
       name: "zipcode",
+      required: "true",
       placeholder: "Zip Code",
     },
   },
