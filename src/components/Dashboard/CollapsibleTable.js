@@ -14,7 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import {ExportCSV} from "./../ExportToExcel/export"
+import { ExportCSV } from "./../ExportToExcel/export";
+import { Button } from "@material-ui/core";
 
 const useRowStyles = makeStyles({
   root: {
@@ -44,11 +45,10 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   var time = new Date(parseInt(row.createdAt));
-    var date = new Date(time);
-    
+  var date = new Date(time);
+
   return (
     <React.Fragment>
-
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton
@@ -132,33 +132,46 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function CollapsibleTable({teamsData}) {
-  console.log("=======See Me ------",teamsData)
+export default function CollapsibleTable({ teamsData }) {
+  console.log("=======See Me ------", teamsData);
   return (
     <>
-    {/* <Button variant="contained" color="primary" style={{margin:"10px 0"}} >Export 
+      {/* <Button variant="contained" color="primary" style={{margin:"10px 0"}} >Export 
     to Excel</Button> */}
-    {/* <ExportCSV csvData={teamsData} fileName="Test"  /> */}
-    <TableContainer component={Paper}>
-      
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Team Id</TableCell>
-            <TableCell align="right">TeamName</TableCell>
-            <TableCell align="right">Sales</TableCell>
-            <TableCell align="right">created At</TableCell>
-            <TableCell align="right">Total Team Members</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {teamsData!=undefined?teamsData.map((row) => (
-            <Row key={row.id} row={row} />
-          )):""}
-        </TableBody>
-      </Table>
-    </TableContainer>
+      <Button
+        variant="contained"
+        style={{ margin: "10px 0" }}
+        href="/createTeam"
+      >
+        Create Team
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        style={{ margin: "10px 20px" }}
+        href="/deleteTeam"
+      >
+        Delete Team
+      </Button>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>Team Id</TableCell>
+              <TableCell align="right">TeamName</TableCell>
+              <TableCell align="right">Sales</TableCell>
+              <TableCell align="right">created At</TableCell>
+              <TableCell align="right">Total Team Members</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {teamsData != undefined
+              ? teamsData.map((row) => <Row key={row.id} row={row} />)
+              : ""}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 }

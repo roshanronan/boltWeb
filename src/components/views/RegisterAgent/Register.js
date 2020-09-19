@@ -84,7 +84,7 @@ this.setState({optionsData:res})
     return (
       <form class="registerForm">
         <div class="registerContainer">
-          <h1>Register Agent</h1>
+          <h1>Register User</h1>
           <p>Please fill in this form to create an account.</p>
           <hr />
           <label for="name" style={{ float: "left"}}>

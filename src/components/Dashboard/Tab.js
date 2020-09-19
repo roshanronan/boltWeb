@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 
 // }
 
-export default function CenteredTabs({teamsData}) {
+export default function   CenteredTabs({teamsData,usersData}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -94,12 +94,9 @@ export default function CenteredTabs({teamsData}) {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <TableComponentEditable />
+        <TableComponentEditable usersData={usersData} />
       </TabPanel>
 
-      <TabPanel value={value} index={2}>
-        <TableComponentEditable />
-      </TabPanel>
     </Paper>
   );
 }

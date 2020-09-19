@@ -9,6 +9,9 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Register from "./components/views/RegisterAgent/Register";
 import DocumentLink from "./components/views/DocLink/DocumentLink";
 import DocumentLink2 from "./components/views/DocLink/DocumentLink2";
+import CreateTeam from "./components/views/CreateTeam/CreateTeam"
+import DeleteTeam from "./components/views/DeleteTeam/DeleteTeam"
+import DeleteUser from "./components/views/DeleteUser/DeleteUser"
 
 const particlesJS = window.particlesJS;
 const particlesJSON = {
@@ -147,7 +150,15 @@ const AppRouter = () => {
         <Route path="/document:id">
           <DocumentLink />
         </Route>
-
+        <Route path="/createTeam">
+          <CreateTeam />
+        </Route>
+        <Route path="/deleteTeam">
+          <DeleteTeam />
+        </Route>
+        <Route path="/deleteUser">
+          <DeleteUser />
+        </Route>
 
         <Route path="/">
           <NewLogin />
