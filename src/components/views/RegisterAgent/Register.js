@@ -24,6 +24,7 @@ const AllTeam = gql`
 let email=React.createRef();
 let password=React.createRef();
 let name=React.createRef();
+let userType=React.createRef();
 
 class Register extends Component {
 
@@ -35,7 +36,7 @@ class Register extends Component {
 apiHandler = async(e)=>{
   e.preventDefault();
   let response
-  let data={name:name.current.value,email:email.current.value,password:password.current.value,teams:this.state.selectedTeamId}
+  let data={name:name.current.value,email:email.current.value,password:password.current.value,teams:this.state.selectedTeamId,userType:userType.current.value}
   response = await client.mutate({
     mutation: ADD_NEWUSER,
     variables: {
@@ -110,7 +111,7 @@ this.setState({optionsData:res})
           <label for="userType" style={{ float: "left" }} >
             User Type
           </label>
-          <select name="userType" required>
+          <select name="userType" ref={userType} required>
              <option value="agent">Agent</option>
              <option value="admin">Admin</option>
              <option value="teammanager">Team Manger</option>
