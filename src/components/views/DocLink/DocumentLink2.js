@@ -13,7 +13,15 @@ const GET_CUSTOMER_DETAILS = gql`
     getCustomerDetails(id: $id) {
       firstName
       lastName
+      mobileNumber
     }
+  }
+`;
+
+const CALLING_CUSTOMER = gql`
+  query callingCustomer($mobileNumber:String){
+    callingCustomer(mobileNumber:$mobileNumber)
+    
   }
 `;
 
@@ -22,7 +30,7 @@ class DocumentLink2 extends Component {
     super(props);
     this.componentRef = React.createRef();
   }
-  state = { name: undefined };
+  state = { name: undefined, mobile: undefined };
 
   componentDidMount = async () => {
     let UrlPath = window.location.pathname;
@@ -35,8 +43,11 @@ class DocumentLink2 extends Component {
       variables: { id: customerId },
     });
 
-    console.log("======",response.data.getCustomerDetails.firstName)
-    this.setState({ name: response.data.getCustomerDetails.firstName });
+    console.log("======", response.data.getCustomerDetails.firstName);
+    this.setState({
+      name: response.data.getCustomerDetails.firstName,
+      mobile: response.data.getCustomerDetails.mobileNumber,
+    });
   };
 
   render() {
@@ -564,9 +575,16 @@ class DocumentLink2 extends Component {
         {/* <CustomerSignature/> */}
         <CustomerSignature />
 
-        <button onClick={() => exportComponentAsPDF(this.componentRef)}>
-          {" "}
-          Submit{" "}
+        <button
+          onClick={() => {
+            exportComponentAsPDF(this.componentRef);
+            client.query({
+              query: CALLING_CUSTOMER,
+              variables: { mobileNumber: this.state.mobile },
+            });
+          }}
+        >
+          Submit
         </button>
       </div>
     );

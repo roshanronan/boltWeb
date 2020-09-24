@@ -39,18 +39,21 @@ input[type="checkbox"] {
   /* flex-direction: column; */
 }
 
-.inputCheckboxClass > label {
-  width: 850px;
+/* .inputCheckboxClass > label {
+  width: 850px; */
   /* word-wrap: break-word; */
   /* background-color: red; */
-  padding: 5px 20px 5px 40px;
-}
+  /* padding: 5px 20px 5px 40px;
+} */
 
 .inputAckCheckboxClass > label {
-  width: 850px;
-  /* word-wrap: break-word; */
-  /* background-color: red; */
-  padding: 5px 20px 5px 40px;
+  font-weight: bold;
+  padding-right: 30px;
+  width: 300px;
+  text-align: right;
+  font-size: large;
+  color: white;
+  margin-top: 5px;
 }
 
 .inputClass {
@@ -128,5 +131,9 @@ select :focus {
 @media only screen and (max-width: 600px) {
   .inputClass {
     flex-direction: column;
+  }
+
+  .inputClass > label {
+    text-align: center;
   }
 }

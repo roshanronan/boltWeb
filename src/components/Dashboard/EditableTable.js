@@ -8,6 +8,9 @@ export default function MaterialTableDemo({usersData}) {
     columns: [
       { title: "Name", field: "name" },
       { title: "Email", field: "email" },
+      { title: "Type", field: "type" },
+      // { title: "Created At", field: "createdAt" },
+
       // { title: "Birth Year", field: "birthYear", type: "numeric" },
       // {
       //   title: "Birth Place",

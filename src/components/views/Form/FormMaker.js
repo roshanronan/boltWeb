@@ -5,15 +5,16 @@ import styles from "./applicantPersonalDetails.module.css";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import Swal from "sweetalert2";
 import { client } from "./../../../index";
-import Config from "./../../../Config/config"
+import Config from "./../../../Config/config";
 import * as Yup from "yup";
+let teamNameText = undefined;
+let filename = undefined;
 
 const CONSTANTS = {
   inputTextField: 1,
   inputDropDown: 2,
   subSectionSelector: 3,
 };
-
 
 const CUSTOMERDETAILS = gql`
   mutation CustomerDetails($data: CustomerDetailsObject) {
@@ -30,16 +31,68 @@ const AllTeam = gql`
   }
 `;
 
+const GetTeamName = gql`
+  query {
+    getTeamName
+  }
+`;
+
+const GETUSERDETAILS = gql`
+  query GetUserDetail($token: String) {
+    GetUserDetail(token: $token) {
+      name
+      rateCode
+      stateAccess
+    }
+  }
+`;
+
+let formComplete = React.createRef();
+
 class FormMaker extends Component {
-  state = {};
   //Yha p all teams api call kr without team argument
   // handleDropDown = async () => {
 
   // };
+  state = {
+    teamName: "",
+  };
+
+  saveState = () => {};
+
+  componentDidMount = async () => {
+    let res = await client.query({
+      query: GetTeamName,
+    });
+    res = res.data.getTeamName;
+    console.log("team of user ", res);
+    this.setState({ teamName: res });
+    formComplete.current[0].value = res;
+
+    let res1 = await client.query({
+      query: GETUSERDETAILS,
+      variables: { token: localStorage.getItem("SessionToken") },
+    });
+    res1 = res1.data.GetUserDetail;
+    console.log("team of user ", res1);
+    // this.setState({ teamName: res1 });
+    formComplete.current[8].value = res1.stateAccess;
+    formComplete.current[9].value = res1.rateCode;
+    if (formComplete.current[8].value === "CA") {
+      formComplete.current[10].value = "pacificgas";
+      formComplete.current[13].disabled = true;
+    } else {
+      formComplete.current[10].value = "nipsco";
+      formComplete.current[13].disabled = false;
+    }
+  };
 
   apiHandler = async (data) => {
+    console.log("up file name", filename);
     let flag = this.props.flag;
     let response;
+    data.filename = filename != undefined ? filename : "";
+    console.log("data in api handler", data);
 
     switch (flag) {
       case 1:
@@ -115,17 +168,18 @@ class FormMaker extends Component {
         >
           <Formik
             initialValues={{
-              formType: "Bolt Energy: WNS Text TPV E-sig CA",
-              // language: "english",
-              repId:"",
-              firstName:""
+              formType: this.state.teamName,
+              language: "english",
+              d2dTelephonic: "D2D",
             }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(async () => {
                 let data = JSON.stringify(values, null, 2);
-                // alert(data)
+                // alert(data);
                 data = JSON.parse(data);
-                this.apiHandler(data);
+                if (this.state.submitClicked) {
+                  this.apiHandler(data);
+                }
                 setSubmitting(false);
               }, 400);
             }}
@@ -136,7 +190,10 @@ class FormMaker extends Component {
             // .required("Required"),
             // })}
           >
-            <Form style={{ padding: 0, backgroundColor: "transparent" }}>
+            <Form
+              ref={formComplete}
+              style={{ padding: 0, backgroundColor: "transparent" }}
+            >
               {section.map((container) => {
                 return (
                   <div style={{ paddingTop: "40px" }}>
@@ -166,22 +223,56 @@ class FormMaker extends Component {
                                 style={subcontainer.css}
                               >
                                 {subcontainer.title ? (
-                                  <h6
-                                    style={{
-                                      textAlign: "center",
-                                      padding: "10px",
-                                      background:
-                                        "linear-gradient(to right, #000428, #004e92)",
-                                      // backgroundColor: "gray",
-                                      borderRadius: "8px",
-                                      color: "white",
-                                      fontWeight: "bold",
-                                      fontSize: "large",
-                                      width: "80%",
-                                    }}
-                                  >
-                                    {subcontainer.title}
-                                  </h6>
+                                  <>
+                                    <h6
+                                      style={{
+                                        textAlign: "center",
+                                        padding: "10px",
+                                        background:
+                                          "linear-gradient(to right, #000428, #004e92)",
+                                        // backgroundColor: "gray",
+                                        borderRadius: "8px",
+                                        color: "white",
+                                        fontWeight: "bold",
+                                        fontSize: "large",
+                                        width: "80%",
+                                      }}
+                                    >
+                                      {subcontainer.title}
+                                    </h6>
+                                    {subcontainer.title == "Billing Address" ? (
+                                      <button
+                                        style={{ margin: "10px" }}
+                                        onClick={() => {
+                                          console.log(
+                                            "-------see this at all cost-------",
+                                            formComplete.current[16].value
+                                          );
+
+                                          formComplete.current[25].value =
+                                            formComplete.current[16].value;
+                                          formComplete.current[26].value =
+                                            formComplete.current[17].value;
+                                          formComplete.current[27].value =
+                                            formComplete.current[18].value;
+                                          formComplete.current[28].value =
+                                            formComplete.current[19].value;
+                                          formComplete.current[29].value =
+                                            formComplete.current[20].value;
+                                          formComplete.current[30].value =
+                                            formComplete.current[21].value;
+                                          formComplete.current[31].value =
+                                            formComplete.current[22].value;
+                                          formComplete.current[32].value =
+                                            formComplete.current[23].value;
+                                        }}
+                                      >
+                                        Same as Service Address
+                                      </button>
+                                    ) : (
+                                      ""
+                                    )}
+                                  </>
                                 ) : (
                                   ""
                                 )}
@@ -215,7 +306,11 @@ class FormMaker extends Component {
                   marginTop: "10px",
                 }}
               >
-                <button className={styles.commonbtn} type="submit">
+                <button
+                  className={styles.commonbtn}
+                  type="submit"
+                  onClick={()=>{this.setState({ submitClicked: true })}}
+                >
                   Submit
                 </button>
               </div>
@@ -241,6 +336,8 @@ class FormMaker extends Component {
 let file;
 const onChangeHandler = (event) => {
   console.log("This is file event....", event.target.files[0].name);
+  filename = event.target.files[0].name;
+  console.log("=-==-===-==-=-=-=-=====-==", formComplete.current[14].value);
   file = event.target.files[0];
   console.log("data of the file, been uploaded", file);
 };
@@ -289,20 +386,21 @@ const ComponentSelector = (
                     attributes.docFlag,
                   { method: "post", body: data }
                 );
+
                 console.log("respose when upload", response.status);
                 if (response.status == 200) {
                   Swal.fire({
                     title: "File Uploaded !",
                     text: "successfully",
                     icon: "success",
-                  })
+                  });
                 } else {
                   console.log("error response", response.status);
                   Swal.fire({
                     title: "Error !",
                     text: response.status,
                     icon: "error",
-                  })
+                  });
                 }
               }}
             >
@@ -355,6 +453,7 @@ const ComponentSelector = (
     case CONSTANTS.inputDropDown:
       component = (
         <FormikDropDown
+          // ref={}
           {...attributes}
           style={{ width: "320px", height: "45px" }}
           // onChange={async () => {
@@ -366,8 +465,13 @@ const ComponentSelector = (
           //   }
           // }}
         >
+          {console.log("test team Name", teamNameText)}
           {dropdownOptions.map((dropoption) => {
-            return <option value={dropoption.value}>{dropoption.label}</option>;
+            return (
+              <option value={dropoption.value}>
+                {teamNameText !== undefined ? teamNameText : dropoption.label}
+              </option>
+            );
           })}
         </FormikDropDown>
       );

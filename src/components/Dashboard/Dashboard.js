@@ -10,6 +10,7 @@ const AllTeam = gql`
       teamName
       createdAt
       sales
+      totalNoMembers
     }
   }
 `;
@@ -19,6 +20,8 @@ const AllUser = gql`
     AllUser {
       name
       email
+      type
+      # createdAt
     }
   }
 `;

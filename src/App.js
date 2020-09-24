@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FormMaker from "./components/views/Form/FormMaker";
 import RegisterCustomer from "./components/views/Form/formdata/AgentandStaff";
-import NewLogin from "./components/views/NewLogin/login.js";
+import NewLogin from "./components/views/NewLogin/login";
 import RegisterAgent from "./components/views/Form/formdata/RegisterAgent";
 import "particles.js/particles";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -158,6 +158,12 @@ const AppRouter = () => {
         </Route>
         <Route path="/deleteUser">
           <DeleteUser />
+        </Route>
+
+        <Route path="/teammanager">
+          <h1 style={{color:"white"}}>
+            Team Manager Dashboard
+          </h1>
         </Route>
 
         <Route path="/">

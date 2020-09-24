@@ -105,7 +105,7 @@ input {
 }
 
 .container {
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 10px;
   box-shadow: 0 14px 28px #000428, 0 10px 10px #004e92;
   position: relative;
@@ -265,4 +265,29 @@ footer i {
 footer a {
   color: #3c97bf;
   text-decoration: none;
+}
+
+.qwerty{
+  display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+ .container{
+   display: none  ;
+   flex-direction: column;
+ }
+ .qwerty{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   padding: 20px;
+ }
+ .qwerty>form{
+   width:90vw !important;
+   padding: 150px 50px;
+   border-radius: 8px;
+   /* height:60vh !important; */
+ }
 }

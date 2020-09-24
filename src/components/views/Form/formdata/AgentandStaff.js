@@ -2,16 +2,26 @@ import styles from "./../applicantPersonalDetails.module.css";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 const SignUpInputField1 = [
+  // {
+  //   type: "dropdown",
+  //   class: styles.inputClass,
+  //   attribute: {
+  //     label: "",
+  //     name: "formType",
+  //   },
+  //   options: [
+  //     { value: "", label: "" },
+  //   ],
+  // },
   {
-    type: "dropdown",
+    type: "text",
     class: styles.inputClass,
     attribute: {
-      label: "",
-      name: "formType",
+      label: "Team Name",
+      type: "text",
+      name: "fromType",
+      disabled:true
     },
-    options: [
-      { value: "boltenergy", label: "Bolt Energy: WNS Text TPV E-sig CA" },
-    ],
   },
   {
     type: "text",
@@ -61,35 +71,12 @@ const SignUpInputField1 = [
       placeholder: "Customer Last Name",
     },
   },
-  //File upload option
-  {
-    type: "text",
-    class: styles.inputClass,
-    attribute: {
-      label: "Customer Pic",
-      type: "file",
-      docFlag: "1",
-      name: "profilePic",
-    },
-  },
 
   {
     type: "text",
     class: styles.inputClass,
     attribute: {
-      label: "BTN(phone number for call back)",
-      type: "text",
-      name: "btNumber",
-      required: "true",
-      placeholder: "BTN",
-    },
-  },
-
-  {
-    type: "text",
-    class: styles.inputClass,
-    attribute: {
-      label: "Mobile Number(for text)",
+      label: "Mobile Number",
       type: "text",
       name: "mobileNumber",
       placeholder: " Mobile Number",
@@ -115,7 +102,7 @@ const SignUpInputField1 = [
       required: "true",
     },
     options: [
-      { value: "", label: "Select D2D/Telephonic" },
+      // { value: "", label: "Select D2D/Telephonic" },
       { value: "D2D", label: "D2D" },
     ],
   },
@@ -126,10 +113,12 @@ const SignUpInputField1 = [
       label: "State",
       name: "state",
       required: "true",
+      disabled:true
     },
     options: [
       { value: "", label: "Select State" },
       { value: "CA", label: "CA" },
+      { value: "IN", label: "IN" },
     ],
   },
 
@@ -140,6 +129,7 @@ const SignUpInputField1 = [
       label: "Rate Code",
       name: "rateCode",
       required: "true",
+      disabled:true
     },
     options: [
       { value: "", label: "Select Rate Code" },
@@ -154,11 +144,13 @@ const SignUpInputField1 = [
     attribute: {
       label: "Utility",
       name: "utility",
-      required: "true",
+      required: true,
+      disabled:true
     },
     options: [
       { value: "", label: "Select Utility" },
       { value: "pacificgas", label: "Pacific Gas and Electric" },
+      { value: "nipsco", label: "Nipsco" },
     ],
   },
   {
@@ -189,8 +181,18 @@ const SignUpInputField1 = [
       label: "Meter Number",
       type: "text",
       name: "meterNumber",
-      required: "true",
       placeholder: "Meter Number",
+    },
+  },
+
+  {
+    type: "text",
+    class: styles.inputClass,
+    attribute: {
+      label: "Picture of Custormer",
+      type: "file",
+      docFlag: "1",
+      name: "profilePic",
     },
   },
 ];
@@ -215,7 +217,6 @@ const SignUpInputField2 = [
       label: "Street Prefix",
       type: "text",
       name: "streetPrefix",
-      required: "true",
       placeholder: "Street Prefix",
     },
   },
@@ -237,7 +238,6 @@ const SignUpInputField2 = [
       label: "Street Suffix",
       type: "text",
       name: "streetSuffix",
-      required: "true",
       placeholder: "Street Suffix",
     },
   },
@@ -248,7 +248,6 @@ const SignUpInputField2 = [
       label: "Apt./Suite Number",
       type: "text",
       name: "aptSuiteNumber",
-      required: "true",
       placeholder: "Apt./Suite Number",
     },
   },
@@ -274,6 +273,7 @@ const SignUpInputField2 = [
     options: [
       { value: "", label: "Select Service State" },
       { value: "CA", label: "CA" },
+      { value: "IN", label: "IN" },
     ],
   },
   {
@@ -290,6 +290,15 @@ const SignUpInputField2 = [
 ];
 
 const SignUpInputField3 = [
+  // {
+  //   type: "text",
+  //   class: styles.inputClass,
+  //   attribute: {
+  //     label:"Same as Service Address",
+  //     type: "checkbox",
+  //     name: "billingAddress",
+  //   },
+  // },
   {
     type: "text",
     class: styles.inputClass,
@@ -361,6 +370,7 @@ const SignUpInputField3 = [
     options: [
       { value: "", label: "Select Service State" },
       { value: "CA", label: "CA" },
+      { value: "IN", label: "IN" },
     ],
   },
   {

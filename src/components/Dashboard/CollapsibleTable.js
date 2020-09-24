@@ -65,7 +65,7 @@ function Row(props) {
         <TableCell align="right">{row.teamName}</TableCell>
         <TableCell align="right">{row.sales}</TableCell>
         <TableCell align="right">{date.toString()}</TableCell>
-        <TableCell align="right">{row.teamName}</TableCell>
+        <TableCell align="right">{row.totalNoMembers}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -159,7 +159,7 @@ export default function CollapsibleTable({ teamsData }) {
             <TableRow>
               <TableCell />
               <TableCell>Team Id</TableCell>
-              <TableCell align="right">TeamName</TableCell>
+              <TableCell align="right">Team Name</TableCell>
               <TableCell align="right">Sales</TableCell>
               <TableCell align="right">created At</TableCell>
               <TableCell align="right">Total Team Members</TableCell>
