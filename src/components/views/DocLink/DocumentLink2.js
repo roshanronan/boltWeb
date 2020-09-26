@@ -1,12 +1,14 @@
-import React, { Component, useState, useRef } from "react";
+import React, { Component, useState, useRef,useEffect } from "react";
 import { exportComponentAsPDF } from "react-component-export-image";
 import "./Document.css";
 import SignatureCanvas from "react-signature-canvas";
 import Popup from "reactjs-popup";
 import SignaturePad from "react-signature-canvas";
 import CustomerSignature from "../../Signature/sigCanvas";
+import Config from "./../../../Config/config"
 import { gql } from "@apollo/client";
 import { client } from "./../../../index";
+import {Button,Modal} from "react-bootstrap"
 
 const GET_CUSTOMER_DETAILS = gql`
   query getCustomerDetails($id: ID) {
@@ -25,12 +27,48 @@ const CALLING_CUSTOMER = gql`
   }
 `;
 
+function ModalComponent({showModal}){
+  console.log("====================modalcompnent",showModal)
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  useEffect(()=>{
+    if(showModal)
+    {
+      console.log("Oh   ...Yess")
+      setShow(true)
+    }
+  },[])
+  // const handleShow = () => setShow(true);
+
+  return (
+    <>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
+
 class DocumentLink2 extends Component {
   constructor(props) {
     super(props);
     this.componentRef = React.createRef();
   }
-  state = { name: undefined, mobile: undefined };
+  state = { name: undefined, mobile: undefined,modal:false };
 
   componentDidMount = async () => {
     let UrlPath = window.location.pathname;
@@ -576,16 +614,37 @@ class DocumentLink2 extends Component {
         <CustomerSignature />
 
         <button
-          onClick={() => {
+          onClick={async() => {
+
+            this.setState({modal:true})
             exportComponentAsPDF(this.componentRef);
-            client.query({
-              query: CALLING_CUSTOMER,
-              variables: { mobileNumber: this.state.mobile },
-            });
+
+            // client.query({
+            //   query: CALLING_CUSTOMER,
+            //   variables: { mobileNumber: this.state.mobile },
+            // });
+
+
+            // if (response.status == 200) {
+            //   Swal.fire({
+            //     title: "File Uploaded !",
+            //     text: "successfully",
+            //     icon: "success",
+            //   });
+            // } else {
+            //   console.log("error response", response.status);
+            //   Swal.fire({
+            //     title: "Error !",
+            //     text: response.status,
+            //     icon: "error",
+            //   });
+            // }
           }}
         >
           Submit
         </button>
+        {console.log("dfhakf",this.state.modal)}
+        <ModalComponent showModal={this.state.modal}/>
       </div>
     );
   }

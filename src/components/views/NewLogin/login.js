@@ -10,6 +10,7 @@ const LOGIN = gql`
       sxToken
       status
       type
+      teamName
     }
   }
 `;
@@ -134,7 +135,7 @@ class login extends React.Component {
       window.location = "/form";
       localStorage.setItem("SessionToken", response.data.Login.sxToken);
     } else if (response.data.Login.type === "manager") {
-      window.location = "/teammanager";
+      window.location = "/teammanagerDashboard";
       localStorage.setItem("SessionToken", response.data.Login.sxToken);
     }
   };
@@ -175,8 +176,9 @@ class login extends React.Component {
       window.location = "/form";
       localStorage.setItem("SessionToken", response.data.Login.sxToken);
     } else if (response.data.Login.type === "manager") {
-      window.location = "/teammanager";
+      window.location = "/teammanagerDashboard";
       localStorage.setItem("SessionToken", response.data.Login.sxToken);
+      localStorage.setItem("TeamManagerTeam",response.data.Login.teamName)
     }
   };
 

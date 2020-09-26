@@ -56,6 +56,9 @@ class FormMaker extends Component {
   // };
   state = {
     teamName: "",
+    stateAccess: "",
+    rateCode: "",
+    sameBtnClick:false,
   };
 
   saveState = () => {};
@@ -68,6 +71,7 @@ class FormMaker extends Component {
     console.log("team of user ", res);
     this.setState({ teamName: res });
     formComplete.current[0].value = res;
+    // console.log("team name rrrr",this.state.teamName)
 
     let res1 = await client.query({
       query: GETUSERDETAILS,
@@ -77,21 +81,46 @@ class FormMaker extends Component {
     console.log("team of user ", res1);
     // this.setState({ teamName: res1 });
     formComplete.current[8].value = res1.stateAccess;
+    this.state.stateAccess = res1.stateAccess;
     formComplete.current[9].value = res1.rateCode;
+    this.state.rateCode = res1.rateCode;
     if (formComplete.current[8].value === "CA") {
-      formComplete.current[10].value = "pacificgas";
+      formComplete.current[10].value = "Pacific Gas and Electric";
       formComplete.current[13].disabled = true;
     } else {
-      formComplete.current[10].value = "nipsco";
+      formComplete.current[10].value = "Nipsco";
       formComplete.current[13].disabled = false;
     }
+
+  
   };
+  
 
   apiHandler = async (data) => {
     console.log("up file name", filename);
     let flag = this.props.flag;
     let response;
     data.filename = filename != undefined ? filename : "";
+    data.formType = this.state.teamName;
+    data.state = this.state.stateAccess;
+    data.rateCode = this.state.rateCode;
+    if (this.state.stateAccess == "CA") {
+      data.utility = "Pacific Gas and Electric";
+    } else {
+      data.utility = "Nipsco";
+    }
+    
+    if(this.state.sameBtnClick){
+      data.billingHouseNumber=data.houseNumber
+      data.billingStreetPrefix=data.streetPrefix
+      data.billingStreetName=data.streetName
+      data.billingStreetSuffix=data.streetSuffix
+      data.billingAptSuiteNumber=data.aptSuiteNumber
+      data.billingServiceCity=data.serviceCity
+      data.billingServiceState=data.serviceState
+      data.billingZipcode=data.zipcode
+    }
+
     console.log("data in api handler", data);
 
     switch (flag) {
@@ -168,16 +197,18 @@ class FormMaker extends Component {
         >
           <Formik
             initialValues={{
-              formType: this.state.teamName,
+              formType:
+                this.state.teamName != undefined ? this.state.teamName : "",
               language: "english",
               d2dTelephonic: "D2D",
             }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(async () => {
                 let data = JSON.stringify(values, null, 2);
-                // alert(data);
+
                 data = JSON.parse(data);
                 if (this.state.submitClicked) {
+                  // alert(data);
                   this.apiHandler(data);
                 }
                 setSubmitting(false);
@@ -244,6 +275,7 @@ class FormMaker extends Component {
                                       <button
                                         style={{ margin: "10px" }}
                                         onClick={() => {
+                                          this.setState({sameBtnClick:true})
                                           console.log(
                                             "-------see this at all cost-------",
                                             formComplete.current[16].value
@@ -309,7 +341,9 @@ class FormMaker extends Component {
                 <button
                   className={styles.commonbtn}
                   type="submit"
-                  onClick={()=>{this.setState({ submitClicked: true })}}
+                  onClick={() => {
+                    this.setState({ submitClicked: true });
+                  }}
                 >
                   Submit
                 </button>

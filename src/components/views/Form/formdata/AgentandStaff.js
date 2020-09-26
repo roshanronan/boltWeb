@@ -20,7 +20,7 @@ const SignUpInputField1 = [
       label: "Team Name",
       type: "text",
       name: "fromType",
-      disabled:true
+      // disabled:true
     },
   },
   {
@@ -113,7 +113,7 @@ const SignUpInputField1 = [
       label: "State",
       name: "state",
       required: "true",
-      disabled:true
+      // disabled:true
     },
     options: [
       { value: "", label: "Select State" },
@@ -129,7 +129,7 @@ const SignUpInputField1 = [
       label: "Rate Code",
       name: "rateCode",
       required: "true",
-      disabled:true
+      // disabled:true
     },
     options: [
       { value: "", label: "Select Rate Code" },
@@ -145,12 +145,12 @@ const SignUpInputField1 = [
       label: "Utility",
       name: "utility",
       required: true,
-      disabled:true
+      // disabled:true
     },
     options: [
       { value: "", label: "Select Utility" },
-      { value: "pacificgas", label: "Pacific Gas and Electric" },
-      { value: "nipsco", label: "Nipsco" },
+      { value: "Pacific Gas and Electric", label: "Pacific Gas and Electric" },
+      { value: "Nipsco", label: "Nipsco" },
     ],
   },
   {
